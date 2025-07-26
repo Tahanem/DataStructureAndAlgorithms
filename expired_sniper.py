@@ -438,16 +438,18 @@ def main():
     print("=" * 40)
     
     # Check dependencies
-    required_packages = [
-        'requests', 'beautifulsoup4', 'fake-useragent'
-    ]
+    required_packages = {
+        'requests': 'requests',
+        'beautifulsoup4': 'bs4',
+        'fake-useragent': 'fake_useragent'
+    }
     
     missing_packages = []
-    for package in required_packages:
+    for package_name, import_name in required_packages.items():
         try:
-            __import__(package.replace('-', '_'))
+            __import__(import_name)
         except ImportError:
-            missing_packages.append(package)
+            missing_packages.append(package_name)
             
     if missing_packages:
         print(f"❌ Missing required packages: {', '.join(missing_packages)}")
